@@ -64,6 +64,9 @@ if ($totalRows != 0) {
     table tbody i.fas.fa-trash-alt {
         color: darkred;
     }
+    .th-w{
+        width: 150px;
+    }
 </style>
 <div class="container">
     <div class="row">
@@ -76,19 +79,19 @@ if ($totalRows != 0) {
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped table-bordered">
+            <table class="table table-sm table-hover  table-bordered">
                 <thead>
-                    <tr>
-                        <th scope="col">
+                    <tr >
+                        <th scope="col" class="align-middle">
                             <i class="fas fa-trash-alt p-2"></i>
                         </th>
                         <th scope="col" class="d-none">sid</th>
-                        <th scope="col">video_cover</th>
-                        <th scope="col">video_name</th>
-                        <th scope="col" class="overflow-auto">video_link</th>
-                        <th scope="col">duration</th>
-                        <th scope="col">create_at</th>
-                        <th scope="col"><i class="fas fa-edit p-2"></i></th>
+                        <th scope="col" class="align-middle">影片封面</th>
+                        <th scope="col" class="align-middle">影片名稱</th>
+                        <th scope="col" class="overflow-auto align-middle">影片存放連結</th>
+                        <th scope="col" class="align-middle">影片時間長度</th>
+                        <th scope="col" class="align-middle">上傳時間</th>
+                        <th scope="col" class="align-middle"><i class="fas fa-edit p-2"></i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,7 +168,7 @@ if ($totalRows != 0) {
             const v_name = document.querySelector('#v-name').textContent;
             const sid = tr.getAttribute('data-sid');
 
-            if (confirm(`是否要刪除編號為 ${v_name} 的資料？`)) {
+            if (confirm(`是否要刪除名稱為 ${v_name} 的影片？`)) {
                 fetch('video_delete_api.php?sid=' + sid)
                     .then(r => r.json())
                     .then(obj => {

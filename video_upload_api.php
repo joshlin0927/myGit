@@ -40,8 +40,33 @@ if (!empty($_FILES) and !empty($_FILES['video_cover'])) {
     // 取得副檔名
 
     // 如果是允許的檔案類型
-    if (!empty($imgExt)) {
-        $imgName = sha1($_FILES['video_cover']['name'] . rand()) . $imgExt;
+        if(! empty($ext)){
+            $filename = sha1( $_FILES['video_link']['name']. rand()). $ext;
+
+        if (move_uploaded_file(
+            $_FILES['video_link']['tmp_name'],
+            $folder . $filename
+        )) {
+            $sql = "INSERT INTO `video_list`(
+                      `video_link`, `teacher_sid`, `created_at`
+                    ) VALUES (
+                             ?, ?, NOW()
+                    )";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                $filename,
+                $_POST['teacher_sid'],
+            ]);
+
+            $output['rowCount'] = $stmt->rowCount();
+            if ($stmt->rowCount() == 1) {
+                $isSaved = true;
+                $output['error'] = '';
+                $output['success'] = true;
+            }
+            
+        }
     }
 
 }
